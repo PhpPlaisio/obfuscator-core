@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ABC-Framework: Obfuscator" default="build" basedir=".">
+    <target name="build">
+    </target>
+
+    <!-- Runs ApiGen -->
+    <target name="apigen">
+        <exec command="apigen generate --todo --tree --source src --destination doc" passthru="true" checkreturn="true"/>
+    </target>
+
+    <!-- Runs all unit tests -->
+    <target name="unit">
+        <exec command="bin/phpunit --bootstrap=test/bootstrap.php test" passthru="true" checkreturn="true"/>
+    </target>
+</project>
