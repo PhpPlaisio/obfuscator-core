@@ -20,7 +20,7 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
 
     if (substr($code, 0, strlen($alias))!=$alias)
     {
-      throw new LogicException(sprintf("Labels '%s' and '%' don't match.", substr($code, 0, strlen($alias)), $alias));
+      throw new LogicException(sprintf("Labels '%s' and '%s' don't match.", substr($code, 0, strlen($alias)), $alias));
     }
 
     return substr($code, strlen($alias) + 1);
