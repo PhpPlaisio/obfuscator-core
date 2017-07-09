@@ -1,26 +1,30 @@
 {
-  "name": "setbased/abc-obfuscator",
-  "description": "ABC-Framework: Obfuscator",
+  "name": "setbased/abc-obfuscator-core",
+  "description": "ABC-Framework: Core Obfuscator",
   "keywords": [
     "ABC",
     "Framework",
     "Obfuscate",
     "Obfuscator"
   ],
-  "type": "library",
   "license": "MIT",
-  "require-dev": {
-    "phing/phing": "2.*",
-    "phpunit/phpunit": "5.*"
-  },
   "require": {
-    "php": ">=5.4.0",
-    "setbased/abc-obfuscator-interface": "1.*",
-    "setbased/exception": "1.*"
+    "php": ">=7.0.0",
+    "setbased/abc-obfuscator": "^2.0.0",
+    "setbased/exception": "^1.0.0"
+  },
+  "require-dev": {
+    "phing/phing": "^2.0.0",
+    "phpunit/phpunit": "^6.0.0"
   },
   "autoload": {
     "psr-4": {
       "SetBased\\Abc\\Obfuscator\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SetBased\\Abc\\Obfuscator\\Test\\": "test/"
     }
   },
   "config": {

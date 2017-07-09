@@ -1,12 +1,20 @@
 <?php
 //----------------------------------------------------------------------------------------------------------------------
+namespace SetBased\Abc\Obfusctaor\Test;
+
+use PHPUnit\Framework\TestCase;
 use SetBased\Abc\Obfuscator\DevelopmentObfuscatorFactory;
 use SetBased\Exception\LogicException;
 
-//----------------------------------------------------------------------------------------------------------------------
-class DevelopmentObfuscatorTest extends PHPUnit_Framework_TestCase
+/**
+ * Test case for DevelopmentObfuscator.
+ */
+class DevelopmentObfuscatorTest extends TestCase
 {
   //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * {@inheritdoc}
+   */
   public function setup()
   {
     mt_srand(crc32(microtime()));
@@ -25,7 +33,7 @@ class DevelopmentObfuscatorTest extends PHPUnit_Framework_TestCase
     {
       $code = $obfuscator->encode($value);
 
-      $this->assertNull($code);
+      self::assertNull($code);
     }
   }
 
@@ -43,7 +51,7 @@ class DevelopmentObfuscatorTest extends PHPUnit_Framework_TestCase
       $code = $obfuscator->encode($value);
       $tmp  = $obfuscator->decode($code);
 
-      $this->assertEquals($tmp, 0);
+      self::assertEquals($tmp, 0);
     }
   }
 
@@ -60,7 +68,7 @@ class DevelopmentObfuscatorTest extends PHPUnit_Framework_TestCase
       $code = $obfuscator->encode($value);
       $tmp  = $obfuscator->decode($code);
 
-      $this->assertEquals($value, $tmp);
+      self::assertEquals($value, $tmp);
     }
 
     for ($value = 100000; $value<=2147483647; $value += mt_rand(1, 10000000))
@@ -68,7 +76,7 @@ class DevelopmentObfuscatorTest extends PHPUnit_Framework_TestCase
       $code = $obfuscator->encode($value);
       $tmp  = $obfuscator->decode($code);
 
-      $this->assertEquals($value, $tmp);
+      self::assertEquals($value, $tmp);
     }
   }
 

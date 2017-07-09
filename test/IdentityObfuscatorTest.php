@@ -1,11 +1,19 @@
 <?php
 //----------------------------------------------------------------------------------------------------------------------
+namespace SetBased\Abc\Obfusctaor\Test;
+
+use PHPUnit\Framework\TestCase;
 use SetBased\Abc\Obfuscator\IdentityObfuscatorFactory;
 
-//----------------------------------------------------------------------------------------------------------------------
-class IdentityObfuscatorTest extends PHPUnit_Framework_TestCase
+/**
+ * Test case for IdentityObfuscator.
+ */
+class IdentityObfuscatorTest extends TestCase
 {
   //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * {@inheritdoc}
+   */
   public function setup()
   {
     mt_srand(crc32(microtime()));
@@ -21,7 +29,7 @@ class IdentityObfuscatorTest extends PHPUnit_Framework_TestCase
     $id         = mt_rand(1, 2147483647);
     $code       = $obfuscator->encode($id);
 
-    $this->assertEquals($id, $code);
+    self::assertEquals($id, $code);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -34,7 +42,7 @@ class IdentityObfuscatorTest extends PHPUnit_Framework_TestCase
     $code       = (string)mt_rand(1, 2147483647);
     $id         = $obfuscator->decode($code);
 
-    $this->assertEquals($code, $id);
+    self::assertEquals($code, $id);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -51,7 +59,7 @@ class IdentityObfuscatorTest extends PHPUnit_Framework_TestCase
       $code = $obfuscator->encode($value);
       $tmp  = $obfuscator->decode($code);
 
-      $this->assertEquals($tmp, 0);
+      self::assertEquals($tmp, 0);
     }
   }
 
