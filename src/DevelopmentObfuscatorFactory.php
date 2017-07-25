@@ -23,7 +23,14 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
       throw new LogicException(sprintf("Labels '%s' and '%s' don't match.", substr($code, 0, strlen($alias)), $alias));
     }
 
-    return substr($code, strlen($alias) + 1);
+    $id = substr($code, strlen($alias) + 1);
+
+    if (preg_match('/^\d+$/', $id)!=1)
+    {
+      throw new LogicException("Integer expected, got '%s'", (string)$id);
+    }
+
+    return $id;
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -33,6 +40,11 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
   public static function encode($id, $alias)
   {
     if ($id===null || $id===false || $id==='') return null;
+
+    if (preg_match('/^\d+$/', $id)!=1)
+    {
+      throw new LogicException("Integer expected, got '%s'", (string)$id);
+    }
 
     return $alias.'_'.$id;
   }

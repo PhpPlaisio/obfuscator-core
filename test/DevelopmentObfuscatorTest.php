@@ -95,6 +95,39 @@ class DevelopmentObfuscatorTest extends TestCase
   }
 
   //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * Test a non integer ID.
+   *
+   * @expectedException LogicException
+   */
+  public function testObfuscateNonInt1()
+  {
+    DevelopmentObfuscatorFactory::encode('id', 'abc');
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * Test a non integer ID.
+   *
+   * @expectedException LogicException
+   */
+  public function testObfuscateNonInt2()
+  {
+    DevelopmentObfuscatorFactory::encode(new LogicException(), 'abc');
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * Test a non integer ID.
+   *
+   * @expectedException LogicException
+   */
+  public function testDeObfuscateNonInt1()
+  {
+    DevelopmentObfuscatorFactory::decode('abc_abc', 'abc');
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
 }
 
 //----------------------------------------------------------------------------------------------------------------------
