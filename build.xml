@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="ABC-Framework: Obfuscator" default="build" basedir=".">
+<project name="ABC-Framework" default="build" basedir=".">
     <target name="build">
     </target>
 

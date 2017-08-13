@@ -2,8 +2,7 @@
   "name": "setbased/abc-obfuscator-core",
   "description": "ABC-Framework: Core Obfuscator",
   "keywords": [
-    "ABC",
-    "Framework",
+    "ABC-Framework",
     "Obfuscate",
     "Obfuscator"
   ],
