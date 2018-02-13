@@ -10,7 +10,9 @@
   "require": {
     "php": ">=7.0.0",
     "setbased/abc-obfuscator": "^1.1.0",
-    "setbased/exception": "^1.0.0"
+    "setbased/exception": "^1.0.0",
+    "setbased/php-stratum": "^0.9.54",
+    "symfony/console": "^3.0.0"
   },
   "require-dev": {
     "phing/phing": "^2.0.0",
