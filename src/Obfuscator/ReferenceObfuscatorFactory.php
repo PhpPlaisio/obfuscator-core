@@ -14,6 +14,8 @@ class ReferenceObfuscatorFactory implements ObfuscatorFactory
    * A lookup table from label to [length, key, bit mask].
    *
    * @var array[]
+   *
+   * @setbased.abc.obfuscator
    */
   public static $labels = [];
 
