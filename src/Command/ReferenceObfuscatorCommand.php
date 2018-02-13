@@ -23,7 +23,7 @@ class ReferenceObfuscatorCommand extends Command
   /**
    * The configuration parameters.
    *
-   * @var array
+   * @var array<string,mixed>
    */
   private $config;
 
@@ -405,16 +405,12 @@ order by table_name";
    *
    * @param int $indent The number of space indenting the array declaration.
    *
-   * @return array
+   * @return string[]
    */
   private function makeVariableStatements($indent)
   {
     // Sort constants by label.
-    $sort_result = uasort($this->config['constants'], __CLASS__.'::compare');
-    if ($sort_result==false)
-    {
-      throw new RuntimeException('Sorting failed');
-    }
+    uasort($this->config['constants'], __CLASS__.'::compare');
 
     $variable = "[\n";
     foreach ($this->getConfig('constants') as $value)
@@ -426,8 +422,10 @@ order by table_name";
                            $value['key'],
                            $value['mask']);
     }
-    $variable    .= sprintf('%s]', str_repeat(' ', $indent));
-    $constants[] = sprintf("%s%s = %s;",
+    $variable .= sprintf('%s]', str_repeat(' ', $indent));
+
+    $constants   = [];
+    $constants[] = sprintf('%s%s = %s;',
                            str_repeat(' ', $indent),
                            $this->getConfig('variable'),
                            $variable,
