@@ -1,6 +1,6 @@
 <?php
 //----------------------------------------------------------------------------------------------------------------------
-namespace SetBased\Abc\Obfusctaor\Test;
+namespace SetBased\Abc\Test\Obfuscator;
 
 use PHPUnit\Framework\TestCase;
 use SetBased\Abc\Obfuscator\DevelopmentObfuscatorFactory;
@@ -13,7 +13,7 @@ class DevelopmentObfuscatorTest extends TestCase
 {
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public function setup()
   {

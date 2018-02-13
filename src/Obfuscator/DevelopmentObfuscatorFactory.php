@@ -4,7 +4,6 @@ namespace SetBased\Abc\Obfuscator;
 
 use SetBased\Exception\LogicException;
 
-//----------------------------------------------------------------------------------------------------------------------
 /**
  * Factory for obfuscators for development only.
  */
@@ -12,7 +11,7 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
 {
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public static function decode($code, $alias)
   {
@@ -35,7 +34,7 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public static function encode($id, $alias)
   {
@@ -51,7 +50,7 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    *
    * @return DevelopmentObfuscator
    */

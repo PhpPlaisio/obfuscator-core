@@ -2,7 +2,6 @@
 //----------------------------------------------------------------------------------------------------------------------
 namespace SetBased\Abc\Obfuscator;
 
-//----------------------------------------------------------------------------------------------------------------------
 /**
  * An implementation of Obfuscator that does not obfuscate database IDs.
  */
@@ -10,7 +9,7 @@ class IdentityObfuscator implements Obfuscator
 {
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public function decode($code)
   {
@@ -19,7 +18,7 @@ class IdentityObfuscator implements Obfuscator
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public function encode($id)
   {

@@ -1,6 +1,6 @@
 <?php
 //----------------------------------------------------------------------------------------------------------------------
-namespace SetBased\Abc\Obfusctaor\Test;
+namespace SetBased\Abc\Test\Obfuscator;
 
 use PHPUnit\Framework\TestCase;
 use SetBased\Abc\Obfuscator\IdentityObfuscatorFactory;
@@ -12,7 +12,7 @@ class IdentityObfuscatorTest extends TestCase
 {
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public function setup()
   {

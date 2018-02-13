@@ -2,6 +2,11 @@
     <target name="build">
     </target>
 
+    <!-- Run composer update and executes various other updates -->
+    <target name="update">
+        <exec command="composer update" checkreturn="true" passthru="true"/>
+    </target>
+
     <!-- Runs ApiGen -->
     <target name="apigen">
         <exec command="apigen generate --todo --tree --source src --destination doc" passthru="true" checkreturn="true"/>

@@ -4,7 +4,6 @@ namespace SetBased\Abc\Obfuscator;
 
 use SetBased\Exception\LogicException;
 
-//----------------------------------------------------------------------------------------------------------------------
 /**
  * A factory for obfuscators using a reference implementation for obfuscating database ID.
  */
@@ -20,7 +19,7 @@ class ReferenceObfuscatorFactory implements ObfuscatorFactory
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public static function decode($code, $alias)
   {
@@ -37,7 +36,7 @@ class ReferenceObfuscatorFactory implements ObfuscatorFactory
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public static function encode($id, $alias)
   {
@@ -54,7 +53,7 @@ class ReferenceObfuscatorFactory implements ObfuscatorFactory
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    *
    * @return ReferenceObfuscator
    */

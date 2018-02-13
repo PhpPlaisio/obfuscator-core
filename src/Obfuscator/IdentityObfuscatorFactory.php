@@ -2,7 +2,6 @@
 //----------------------------------------------------------------------------------------------------------------------
 namespace SetBased\Abc\Obfuscator;
 
-//----------------------------------------------------------------------------------------------------------------------
 /**
  * A factory for obfuscators that do not obfuscate at all.
  */
@@ -10,7 +9,7 @@ class IdentityObfuscatorFactory implements ObfuscatorFactory
 {
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public static function decode($code, $alias)
   {
@@ -19,7 +18,7 @@ class IdentityObfuscatorFactory implements ObfuscatorFactory
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public static function encode($id, $alias)
   {
@@ -28,7 +27,7 @@ class IdentityObfuscatorFactory implements ObfuscatorFactory
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    *
    * @return IdentityObfuscator
    */

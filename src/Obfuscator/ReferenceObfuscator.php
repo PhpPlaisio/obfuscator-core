@@ -2,7 +2,6 @@
 //----------------------------------------------------------------------------------------------------------------------
 namespace SetBased\Abc\Obfuscator;
 
-//----------------------------------------------------------------------------------------------------------------------
 /**
  * Class for obfuscator database ID using two very simple encryption techniques: a (very weak) encryption method and a
  * bit mask with the same length as the database ID.
@@ -120,7 +119,7 @@ class ReferenceObfuscator implements Obfuscator
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public function decode($code)
   {
@@ -129,7 +128,7 @@ class ReferenceObfuscator implements Obfuscator
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public function encode($id)
   {

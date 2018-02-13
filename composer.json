@@ -9,7 +9,7 @@
   "license": "MIT",
   "require": {
     "php": ">=7.0.0",
-    "setbased/abc-obfuscator": "^1.0.0",
+    "setbased/abc-obfuscator": "^1.1.0",
     "setbased/exception": "^1.0.0"
   },
   "require-dev": {
@@ -18,15 +18,15 @@
   },
   "autoload": {
     "psr-4": {
-      "SetBased\\Abc\\Obfuscator\\": "src/"
+      "SetBased\\Abc\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "SetBased\\Abc\\Obfuscator\\Test\\": "test/"
+      "SetBased\\Abc\\Test\\": "test/"
     }
   },
   "config": {
-    "bin-dir": "bin"
+    "bin-dir": "bin/"
   }
 }

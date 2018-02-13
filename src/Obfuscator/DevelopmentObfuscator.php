@@ -2,7 +2,6 @@
 //----------------------------------------------------------------------------------------------------------------------
 namespace SetBased\Abc\Obfuscator;
 
-//----------------------------------------------------------------------------------------------------------------------
 /**
  * An Obfuscator for development environments only.
  *
@@ -14,7 +13,9 @@ class DevelopmentObfuscator implements Obfuscator
 {
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * @var string The alias for table from which IDs originates.
+   * The alias for table from which IDs originates.
+   *
+   * @var string
    */
   private $alias;
 
@@ -33,6 +34,8 @@ class DevelopmentObfuscator implements Obfuscator
   /**
    * {@inheritdoc}
    *
+   * @param string|null $code The obfuscated database ID.
+   *
    * Throws an exception if the database ID is obfuscated with different label.
    */
   public function decode($code)
@@ -42,7 +45,7 @@ class DevelopmentObfuscator implements Obfuscator
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * {@inheritdoc}
+   * @inheritdoc
    */
   public function encode($id)
   {
