@@ -96,6 +96,9 @@ class ReferenceObfuscatorCommand extends Command
    */
   protected function execute(InputInterface $input, OutputInterface $output)
   {
+    $this->configFileName = $input->getArgument('config.json');
+    $this->readConfigFile($this->configFileName);
+
     $this->getDatabaseIds();
     $this->generateConstants();
     $this->writeConstant();
@@ -115,7 +118,6 @@ class ReferenceObfuscatorCommand extends Command
   protected function initialize(InputInterface $input, OutputInterface $output)
   {
     $verbosityLevelMap = [LogLevel::NOTICE => OutputInterface::VERBOSITY_NORMAL];
-
     $this->logger = new ConsoleLogger($output, $verbosityLevelMap);
 
     // Create style for database objects.
