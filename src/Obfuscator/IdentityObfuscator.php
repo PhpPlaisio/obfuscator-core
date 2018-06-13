@@ -13,7 +13,7 @@ class IdentityObfuscator implements Obfuscator
    */
   public function decode(?string $code): ?int
   {
-    return ($code===null || $code==='') ? null : (int)$code;
+    return IdentityObfuscatorFactory::decode($code, '');
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ class IdentityObfuscator implements Obfuscator
    */
   public function encode(?int $id): ?string
   {
-    return ($id===null) ? null : (string)$id;
+    return IdentityObfuscatorFactory::encode($id, '');
   }
 
   //--------------------------------------------------------------------------------------------------------------------

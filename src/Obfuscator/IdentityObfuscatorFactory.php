@@ -13,7 +13,7 @@ class IdentityObfuscatorFactory implements ObfuscatorFactory
    */
   public static function decode(?string $code, string $alias): ?int
   {
-    return ($code===null) ? null : (int)$code;
+    return ($code===null || $code==='') ? null : (int)$code;
   }
 
   //--------------------------------------------------------------------------------------------------------------------
