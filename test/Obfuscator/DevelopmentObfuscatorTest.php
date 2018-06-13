@@ -7,7 +7,7 @@ use SetBased\Abc\Obfuscator\DevelopmentObfuscatorFactory;
 use SetBased\Exception\LogicException;
 
 /**
- * Test case for DevelopmentObfuscator.
+ * Test cases for DevelopmentObfuscator.
  */
 class DevelopmentObfuscatorTest extends TestCase
 {

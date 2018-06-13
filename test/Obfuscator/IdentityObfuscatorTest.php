@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use SetBased\Abc\Obfuscator\IdentityObfuscatorFactory;
 
 /**
- * Test case for IdentityObfuscator.
+ * Test cases for IdentityObfuscator.
  */
 class IdentityObfuscatorTest extends TestCase
 {

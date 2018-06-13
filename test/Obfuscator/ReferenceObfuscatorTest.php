@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use SetBased\Abc\Obfuscator\ReferenceObfuscatorFactory;
 
 /**
- * Test case for ReferenceObfuscator.
+ * Test cases for ReferenceObfuscator.
  */
 class ReferenceObfuscatorTest extends TestCase
 {
