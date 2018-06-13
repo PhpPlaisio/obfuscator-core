@@ -99,7 +99,7 @@ class ReferenceObfuscator implements Obfuscator
    */
   public static function encrypt(?int $id, int $length, int $key, int $mask): ?string
   {
-    if ($id===null || $id==='') return null;
+    if ($id===null) return null;
 
     $result = 0;
     $val    = $id ^ $mask;

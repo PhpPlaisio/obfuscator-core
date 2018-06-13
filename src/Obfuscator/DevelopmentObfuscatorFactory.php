@@ -38,7 +38,7 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
    */
   public static function encode(?int $id, string $alias): ?string
   {
-    if ($id===null || $id==='') return null;
+    if ($id===null) return null;
 
     return $alias.'_'.$id;
   }
