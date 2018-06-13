@@ -59,7 +59,7 @@ class ReferenceObfuscatorFactory implements ObfuscatorFactory
    *
    * @return ReferenceObfuscator
    */
-  public static function getObfuscator(string $alias)
+  public static function getObfuscator(string $alias): Obfuscator
   {
     if (!isset(self::$labels[$alias]))
     {

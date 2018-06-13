@@ -31,7 +31,7 @@ class IdentityObfuscatorFactory implements ObfuscatorFactory
    *
    * @return IdentityObfuscator
    */
-  public static function getObfuscator(string $alias)
+  public static function getObfuscator(string $alias): Obfuscator
   {
     return new IdentityObfuscator();
   }

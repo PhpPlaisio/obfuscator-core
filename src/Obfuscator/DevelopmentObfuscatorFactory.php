@@ -49,7 +49,7 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
    *
    * @return DevelopmentObfuscator
    */
-  public static function getObfuscator(string $alias)
+  public static function getObfuscator(string $alias): Obfuscator
   {
     return new DevelopmentObfuscator($alias);
   }
