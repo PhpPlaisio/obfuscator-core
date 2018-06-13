@@ -1,5 +1,5 @@
 <?php
-//----------------------------------------------------------------------------------------------------------------------
+
 namespace SetBased\Abc\Test\Obfuscator;
 
 use PHPUnit\Framework\TestCase;
@@ -21,6 +21,22 @@ class IdentityObfuscatorTest extends TestCase
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
+   * Test null and empty string are decoded to null.
+   */
+  public function testDeObfuscate1()
+  {
+    $obfuscator = IdentityObfuscatorFactory::getObfuscator('abc');
+
+    $codes = ['', null];
+    foreach ($codes as $code)
+    {
+      $id = $obfuscator->decode($code);
+      self::assertNull($id);
+    }
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
    * Test encode does nothing.
    */
   public function testIdentity1()
@@ -31,6 +47,7 @@ class IdentityObfuscatorTest extends TestCase
 
     self::assertEquals($id, $code);
   }
+
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
@@ -67,4 +84,3 @@ class IdentityObfuscatorTest extends TestCase
 }
 
 //----------------------------------------------------------------------------------------------------------------------
- 

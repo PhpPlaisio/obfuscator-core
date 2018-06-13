@@ -1,5 +1,5 @@
 <?php
-//----------------------------------------------------------------------------------------------------------------------
+
 namespace SetBased\Abc\Obfuscator;
 
 use SetBased\Exception\LogicException;
@@ -13,9 +13,9 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
   /**
    * @inheritdoc
    */
-  public static function decode($code, $alias)
+  public static function decode(?string $code, string $alias): ?int
   {
-    if ($code===null || $code===false || $code==='') return null;
+    if ($code===null || $code==='') return null;
 
     if (substr($code, 0, strlen($alias))!=$alias)
     {
@@ -36,14 +36,9 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
   /**
    * @inheritdoc
    */
-  public static function encode($id, $alias)
+  public static function encode(?int $id, string $alias): ?string
   {
-    if ($id===null || $id===false || $id==='') return null;
-
-    if (preg_match('/^\d+$/', $id)!=1)
-    {
-      throw new LogicException("Integer expected, got '%s'", (string)$id);
-    }
+    if ($id===null || $id==='') return null;
 
     return $alias.'_'.$id;
   }
@@ -54,7 +49,7 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
    *
    * @return DevelopmentObfuscator
    */
-  public static function getObfuscator($alias)
+  public static function getObfuscator(string $alias)
   {
     return new DevelopmentObfuscator($alias);
   }

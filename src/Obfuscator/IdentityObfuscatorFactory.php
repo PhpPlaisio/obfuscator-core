@@ -1,5 +1,5 @@
 <?php
-//----------------------------------------------------------------------------------------------------------------------
+
 namespace SetBased\Abc\Obfuscator;
 
 /**
@@ -11,18 +11,18 @@ class IdentityObfuscatorFactory implements ObfuscatorFactory
   /**
    * @inheritdoc
    */
-  public static function decode($code, $alias)
+  public static function decode(?string $code, string $alias): ?int
   {
-    return $code;
+    return ($code===null) ? null : (int)$code;
   }
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
    * @inheritdoc
    */
-  public static function encode($id, $alias)
+  public static function encode(?int $id, string $alias): ?string
   {
-    return $id;
+    return ($id===null) ? null : (string)$id;
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -31,7 +31,7 @@ class IdentityObfuscatorFactory implements ObfuscatorFactory
    *
    * @return IdentityObfuscator
    */
-  public static function getObfuscator($alias)
+  public static function getObfuscator(string $alias)
   {
     return new IdentityObfuscator();
   }

@@ -1,5 +1,5 @@
 <?php
-//----------------------------------------------------------------------------------------------------------------------
+
 namespace SetBased\Abc\Obfuscator;
 
 /**
@@ -20,12 +20,13 @@ class DevelopmentObfuscator implements Obfuscator
   private $alias;
 
   //--------------------------------------------------------------------------------------------------------------------
+
   /**
    * Object constructor.
    *
    * @param string $alias The alias for table from which the ID originates.
    */
-  public function __construct($alias)
+  public function __construct(string $alias)
   {
     $this->alias = $alias;
   }
@@ -38,7 +39,7 @@ class DevelopmentObfuscator implements Obfuscator
    *
    * Throws an exception if the database ID is obfuscated with different label.
    */
-  public function decode($code)
+  public function decode(?string $code): ?int
   {
     return DevelopmentObfuscatorFactory::decode($code, $this->alias);
   }
@@ -47,7 +48,7 @@ class DevelopmentObfuscator implements Obfuscator
   /**
    * @inheritdoc
    */
-  public function encode($id)
+  public function encode(?int $id): ?string
   {
     return DevelopmentObfuscatorFactory::encode($id, $this->alias);
   }

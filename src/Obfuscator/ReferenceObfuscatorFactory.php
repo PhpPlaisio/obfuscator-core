@@ -1,5 +1,5 @@
 <?php
-//----------------------------------------------------------------------------------------------------------------------
+
 namespace SetBased\Abc\Obfuscator;
 
 use SetBased\Exception\LogicException;
@@ -23,11 +23,11 @@ class ReferenceObfuscatorFactory implements ObfuscatorFactory
   /**
    * @inheritdoc
    */
-  public static function decode($code, $alias)
+  public static function decode(?string $code, string $alias): ?int
   {
     if (!isset(self::$labels[$alias]))
     {
-      throw new LogicException("Unknown label '%s'.", $alias);
+      throw new LogicException("Unknown label '%s'", $alias);
     }
 
     return ReferenceObfuscator::decrypt($code,
@@ -40,11 +40,11 @@ class ReferenceObfuscatorFactory implements ObfuscatorFactory
   /**
    * @inheritdoc
    */
-  public static function encode($id, $alias)
+  public static function encode(?int $id, string $alias): ?string
   {
     if (!isset(self::$labels[$alias]))
     {
-      throw new LogicException("Unknown label '%s'.", $alias);
+      throw new LogicException("Unknown label '%s'", $alias);
     }
 
     return ReferenceObfuscator::encrypt($id,
@@ -59,11 +59,11 @@ class ReferenceObfuscatorFactory implements ObfuscatorFactory
    *
    * @return ReferenceObfuscator
    */
-  public static function getObfuscator($alias)
+  public static function getObfuscator(string $alias)
   {
     if (!isset(self::$labels[$alias]))
     {
-      throw new LogicException("Unknown label '%s'.", $alias);
+      throw new LogicException("Unknown label '%s'", $alias);
     }
 
     return new ReferenceObfuscator(self::$labels[$alias][0],

@@ -1,5 +1,5 @@
 <?php
-//----------------------------------------------------------------------------------------------------------------------
+
 namespace SetBased\Abc\Obfuscator;
 
 /**
@@ -11,18 +11,18 @@ class IdentityObfuscator implements Obfuscator
   /**
    * @inheritdoc
    */
-  public function decode($code)
+  public function decode(?string $code): ?int
   {
-    return $code;
+    return ($code===null || $code==='') ? null : (int)$code;
   }
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
    * @inheritdoc
    */
-  public function encode($id)
+  public function encode(?int $id): ?string
   {
-    return $id;
+    return ($id===null) ? null : (string)$id;
   }
 
   //--------------------------------------------------------------------------------------------------------------------

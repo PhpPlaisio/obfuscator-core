@@ -1,5 +1,5 @@
 <?php
-//----------------------------------------------------------------------------------------------------------------------
+
 namespace SetBased\Abc\Test\Obfuscator;
 
 use PHPUnit\Framework\TestCase;
@@ -45,19 +45,30 @@ class ReferenceObfuscatorTest extends TestCase
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Test none database ID are decoded to null.
+   * Test null and empty string are decoded to null.
+   */
+  public function testDeObfuscate1()
+  {
+    $obfuscator = ReferenceObfuscatorFactory::getObfuscator('abc');
+
+    $codes = ['', null];
+    foreach ($codes as $code)
+    {
+      $id = $obfuscator->decode($code);
+      self::assertNull($id);
+    }
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * Test null is encoded to null.
    */
   public function testObfuscate1()
   {
     $obfuscator = ReferenceObfuscatorFactory::getObfuscator('abc');
 
-    $values = ['', null, false]; //, true, array('hello'=> 'world') );
-    foreach ($values as $value)
-    {
-      $code = $obfuscator->encode($value);
-
-      self::assertNull($code);
-    }
+    $code = $obfuscator->encode(null);
+    self::assertNull($code);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -107,4 +118,3 @@ class ReferenceObfuscatorTest extends TestCase
 }
 
 //----------------------------------------------------------------------------------------------------------------------
- 

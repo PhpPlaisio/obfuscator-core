@@ -60,16 +60,15 @@ class ReferenceObfuscatorCommand extends Command
   private $tables;
 
   //--------------------------------------------------------------------------------------------------------------------
-
   /**
    * Compares obfuscator metadata for sorting.
    *
-   * @param $a
-   * @param $b
+   * @param array $a The first metadata.
+   * @param array $b The second metadata.
    *
    * @return int
    */
-  public static function compare($a, $b)
+  public static function compare(array $a, array $b): int
   {
     if (strtolower($a['label'])==strtolower($b['label']))
     {
@@ -99,7 +98,7 @@ class ReferenceObfuscatorCommand extends Command
     $this->configFileName = $input->getArgument('config.json');
     $this->readConfigFile($this->configFileName);
 
-    $this->getDatabaseIds();
+    $this->extractDatabaseIds();
     $this->generateConstants();
     $this->writeConstant();
 
@@ -118,7 +117,7 @@ class ReferenceObfuscatorCommand extends Command
   protected function initialize(InputInterface $input, OutputInterface $output)
   {
     $verbosityLevelMap = [LogLevel::NOTICE => OutputInterface::VERBOSITY_NORMAL];
-    $this->logger = new ConsoleLogger($output, $verbosityLevelMap);
+    $this->logger      = new ConsoleLogger($output, $verbosityLevelMap);
 
     // Create style for database objects.
     $style = new OutputFormatterStyle(null, null, ['bold']);
@@ -139,7 +138,7 @@ class ReferenceObfuscatorCommand extends Command
    *
    * @param string $configFilename The name of the configuration file.
    */
-  protected function readConfigFile($configFilename)
+  protected function readConfigFile(string $configFilename): void
   {
     $content      = file_get_contents($configFilename);
     $this->config = json_decode($content, true);
@@ -159,7 +158,7 @@ class ReferenceObfuscatorCommand extends Command
    * @param string $filename The name of the file were the data must be stored.
    * @param string $data     The data that must be written.
    */
-  protected function writeTwoPhases($filename, $data)
+  protected function writeTwoPhases(string $filename, string $data): void
   {
     $write_flag = true;
     if (file_exists($filename))
@@ -184,6 +183,39 @@ class ReferenceObfuscatorCommand extends Command
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
+   * Extracts metadata about tables with autoincrement columns.
+   */
+  private function extractDatabaseIds(): void
+  {
+    $query = "
+select table_name
+,      column_name
+,      data_type
+from   information_schema.columns
+where table_schema = database()
+and   extra        = 'auto_increment'
+order by table_name";
+
+    StaticDataLayer::connect($this->getConfig('database/host_name'),
+                             $this->getConfig('database/user_name'),
+                             $this->getConfig('database/password'),
+                             $this->getConfig('database/database_name'));
+    $tables = StaticDataLayer::executeRows($query);
+    StaticDataLayer::disconnect();
+
+    // Remove the table to be ignored.
+    $ignore = $this->getConfig('ignore', false);
+    foreach ($tables as $table)
+    {
+      if (!in_array($table['table_name'], $ignore))
+      {
+        $this->tables[] = $table;
+      }
+    }
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
    * Searches for 3 lines in the source code with reference obfuscator parameters. The lines are:
    * <ul>
    * <li> The first line of the doc block with the annotation '@setbased.abc.obfuscator'.
@@ -196,7 +228,7 @@ class ReferenceObfuscatorCommand extends Command
    *
    * @return array With the 3 line numbers as described.
    */
-  private function extractLines($source)
+  private function extractLines(string $source): array
   {
     $tokens = token_get_all($source);
 
@@ -265,7 +297,7 @@ class ReferenceObfuscatorCommand extends Command
   /**
    * Creates array declaration ($length, $key, $mask) for each database ID.
    */
-  private function generateConstants()
+  private function generateConstants(): void
   {
     // Get constants already defined.
     $defined = $this->getConfig('constants', true);
@@ -317,7 +349,7 @@ class ReferenceObfuscatorCommand extends Command
    *
    * @return mixed
    */
-  private function getConfig($path, $mandatory = true)
+  private function getConfig(string $path, bool $mandatory = true)
   {
     $ret  = null;
     $keys = explode('/', $path);
@@ -349,46 +381,13 @@ class ReferenceObfuscatorCommand extends Command
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Retrieves metadata about tables with autoincrement columns.
-   */
-  private function getDatabaseIds()
-  {
-    $query = "
-select table_name
-,      column_name
-,      data_type
-from   information_schema.columns
-where table_schema = database()
-and   extra        = 'auto_increment'
-order by table_name";
-
-    StaticDataLayer::connect($this->getConfig('database/host_name'),
-                             $this->getConfig('database/user_name'),
-                             $this->getConfig('database/password'),
-                             $this->getConfig('database/database_name'));
-    $tables = StaticDataLayer::executeRows($query);
-    StaticDataLayer::disconnect();
-
-    // Remove the table to be ignored.
-    $ignore = $this->getConfig('ignore', false);
-    foreach ($tables as $table)
-    {
-      if (!in_array($table['table_name'], $ignore))
-      {
-        $this->tables[] = $table;
-      }
-    }
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
-  /**
    * Searches for a table name based on a label.
    *
    * @param string $label The label to search for.
    *
-   * @return string The table name of the table with  the label, null if no table with the label exists.
+   * @return string|null The table name of the table with  the label, null if no table with the label exists.
    */
-  private function getTableByLabel($label)
+  private function getTableByLabel(string $label): ?string
   {
     foreach ($this->config['constants'] as $tableName => $constant)
     {
@@ -409,7 +408,7 @@ order by table_name";
    *
    * @return string[]
    */
-  private function makeVariableStatements($indent)
+  private function makeVariableStatements(int $indent): array
   {
     // Sort constants by label.
     uasort($this->config['constants'], __CLASS__.'::compare');
@@ -440,7 +439,7 @@ order by table_name";
   /**
    * Removes obsolete constants from the configuration.
    */
-  private function removeObsoleteConstants()
+  private function removeObsoleteConstants(): void
   {
     $constants = $this->getConfig('constants', true);
     foreach ($constants as $tableName => $const)
@@ -457,7 +456,7 @@ order by table_name";
   /**
    * Saves the configuration data to the configuration file.
    */
-  private function rewriteConfig()
+  private function rewriteConfig(): void
   {
     // Sort array with labels, keys and masks by label.
     ksort($this->config['constants']);
@@ -469,7 +468,7 @@ order by table_name";
   /**
    * Insert new and replace old (if any) array declaration for reference obfuscator in a PHP source file.
    */
-  private function writeConstant()
+  private function writeConstant(): void
   {
     $source = file_get_contents($this->getConfig('file'));
     $lines  = explode("\n", $source);

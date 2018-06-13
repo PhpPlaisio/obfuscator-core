@@ -1,5 +1,5 @@
 <?php
-//----------------------------------------------------------------------------------------------------------------------
+
 namespace SetBased\Abc\Test\Obfuscator;
 
 use PHPUnit\Framework\TestCase;
@@ -22,19 +22,41 @@ class DevelopmentObfuscatorTest extends TestCase
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Test none database ID are decoded to null.
+   * Test null and empty string are decoded to null.
+   */
+  public function testDeObfuscate1()
+  {
+    $obfuscator = DevelopmentObfuscatorFactory::getObfuscator('abc');
+
+    $codes = ['', null];
+    foreach ($codes as $code)
+    {
+      $id = $obfuscator->decode($code);
+      self::assertNull($id);
+    }
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * Test a non integer ID.
+   *
+   * @expectedException LogicException
+   */
+  public function testDeObfuscateNonInt1()
+  {
+    DevelopmentObfuscatorFactory::decode('abc_abc', 'abc');
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * Test null is encoded to null.
    */
   public function testObfuscate1()
   {
     $obfuscator = DevelopmentObfuscatorFactory::getObfuscator('abc');
 
-    $values = ['', null, false]; //, true, array('hello'=> 'world') );
-    foreach ($values as $value)
-    {
-      $code = $obfuscator->encode($value);
-
-      self::assertNull($code);
-    }
+    $code = $obfuscator->encode(null);
+    self::assertNull($code);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -95,40 +117,6 @@ class DevelopmentObfuscatorTest extends TestCase
   }
 
   //--------------------------------------------------------------------------------------------------------------------
-  /**
-   * Test a non integer ID.
-   *
-   * @expectedException LogicException
-   */
-  public function testObfuscateNonInt1()
-  {
-    DevelopmentObfuscatorFactory::encode('id', 'abc');
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
-  /**
-   * Test a non integer ID.
-   *
-   * @expectedException LogicException
-   */
-  public function testObfuscateNonInt2()
-  {
-    DevelopmentObfuscatorFactory::encode(new LogicException(), 'abc');
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
-  /**
-   * Test a non integer ID.
-   *
-   * @expectedException LogicException
-   */
-  public function testDeObfuscateNonInt1()
-  {
-    DevelopmentObfuscatorFactory::decode('abc_abc', 'abc');
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
 }
 
 //----------------------------------------------------------------------------------------------------------------------
- 

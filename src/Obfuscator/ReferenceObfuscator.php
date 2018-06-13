@@ -1,5 +1,5 @@
 <?php
-//----------------------------------------------------------------------------------------------------------------------
+
 namespace SetBased\Abc\Obfuscator;
 
 /**
@@ -46,7 +46,7 @@ class ReferenceObfuscator implements Obfuscator
    * @param int $bitMask The bit mask to be applied on a database ID. The length (in bytes) of this bit mask must be
    *                     equal to the maximum length (in bytes) of the database ID.
    */
-  public function __construct($length, $key, $bitMask)
+  public function __construct(int $length, int $key, int $bitMask)
   {
     $this->length  = $length;
     $this->key     = $key;
@@ -65,9 +65,9 @@ class ReferenceObfuscator implements Obfuscator
    *
    * @return int|null
    */
-  public static function decrypt($code, $length, $key, $mask)
+  public static function decrypt(?string $code, int $length, int $key, int $mask): ?int
   {
-    if ($code===null || $code===false || $code==='') return null;
+    if ($code===null || $code==='') return null;
 
     $result = 0;
     $val    = hexdec($code);
@@ -89,17 +89,17 @@ class ReferenceObfuscator implements Obfuscator
   /**
    * Obfuscates a database ID.
    *
-   * @param int $id     The database ID.
-   * @param int $length The length (in bytes) of the (original) database ID.
-   * @param int $key    The encryption key. Must be a number between 0 and 65535.
-   * @param int $mask   The bit mask. The length (in bytes) of this bit mask must be equal to the maximum length (in
-   *                    bytes) of the database ID.
+   * @param int|null $id     The database ID.
+   * @param int      $length The length (in bytes) of the (original) database ID.
+   * @param int      $key    The encryption key. Must be a number between 0 and 65535.
+   * @param int      $mask   The bit mask. The length (in bytes) of this bit mask must be equal to the maximum length
+   *                         (in bytes) of the database ID.
    *
    * @return null|string
    */
-  public static function encrypt($id, $length, $key, $mask)
+  public static function encrypt(?int $id, int $length, int $key, int $mask): ?string
   {
-    if ($id===null || $id===false || $id==='') return null;
+    if ($id===null || $id==='') return null;
 
     $result = 0;
     $val    = $id ^ $mask;
@@ -121,7 +121,7 @@ class ReferenceObfuscator implements Obfuscator
   /**
    * @inheritdoc
    */
-  public function decode($code)
+  public function decode(?string $code): ?int
   {
     return self::decrypt($code, $this->length, $this->key, $this->bitMask);
   }
@@ -130,7 +130,7 @@ class ReferenceObfuscator implements Obfuscator
   /**
    * @inheritdoc
    */
-  public function encode($id)
+  public function encode(?int $id): ?string
   {
     return self::encrypt($id, $this->length, $this->key, $this->bitMask);
   }
