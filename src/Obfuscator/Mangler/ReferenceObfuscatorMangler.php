@@ -1,5 +1,5 @@
 <?php
-//----------------------------------------------------------------------------------------------------------------------
+
 namespace SetBased\Abc\Obfuscator\Mangler;
 
 /**
@@ -20,7 +20,7 @@ interface ReferenceObfuscatorMangler
    *
    * @return string
    */
-  public static function getLabel($table);
+  public static function getLabel(array $table): string;
 
   //-------------------------------------------------------------------------------------------------------------------
 }

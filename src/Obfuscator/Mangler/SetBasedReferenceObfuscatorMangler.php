@@ -1,5 +1,5 @@
 <?php
-//----------------------------------------------------------------------------------------------------------------------
+
 namespace SetBased\Abc\Obfuscator\Mangler;
 
 use SetBased\Exception\RuntimeException;
@@ -24,7 +24,7 @@ class SetBasedReferenceObfuscatorMangler implements ReferenceObfuscatorMangler
    *
    * @return string
    */
-  public static function getLabel($table)
+  public static function getLabel(array $table): string
   {
     $id = substr($table['column_name'], -strlen('_id'));
     if ($id!='_id')
