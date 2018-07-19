@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace SetBased\Abc\Obfuscator;
 
@@ -29,7 +30,7 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
       throw new LogicException("Integer expected, got '%s'", (string)$id);
     }
 
-    return $id;
+    return (int)$id;
   }
 
   //--------------------------------------------------------------------------------------------------------------------

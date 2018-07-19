@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace SetBased\Abc\Test\Obfuscator;
 
@@ -71,14 +72,10 @@ class ReferenceObfuscatorFactoryTest extends TestCase
    */
   public function testObfuscate2()
   {
-    $values = [0, '0'];
-    foreach ($values as $value)
-    {
-      $code = ReferenceObfuscatorFactory::encode($value, 'abc');
-      $tmp  = ReferenceObfuscatorFactory::decode($code, 'abc');
+    $code = ReferenceObfuscatorFactory::encode(0, 'abc');
+    $tmp  = ReferenceObfuscatorFactory::decode($code, 'abc');
 
-      self::assertEquals($tmp, 0);
-    }
+    self::assertEquals($tmp, 0);
   }
 
   //--------------------------------------------------------------------------------------------------------------------

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace SetBased\Abc\Test\Obfuscator;
 
@@ -69,15 +70,11 @@ class IdentityObfuscatorTest extends TestCase
   public function testObfuscateDeObfuscate1()
   {
     $obfuscator = IdentityObfuscatorFactory::getObfuscator('abc');
-    $values     = [0, '0'];
 
-    foreach ($values as $value)
-    {
-      $code = $obfuscator->encode($value);
-      $tmp  = $obfuscator->decode($code);
+    $code = $obfuscator->encode(0);
+    $tmp  = $obfuscator->decode($code);
 
-      self::assertEquals($tmp, 0);
-    }
+    self::assertEquals($tmp, 0);
   }
 
   //--------------------------------------------------------------------------------------------------------------------

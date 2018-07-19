@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace SetBased\Abc\Test\Obfuscator;
 
@@ -67,14 +68,10 @@ class DevelopmentObfuscatorTest extends TestCase
   {
     $obfuscator = DevelopmentObfuscatorFactory::getObfuscator('abc');
 
-    $values = [0, '0'];
-    foreach ($values as $value)
-    {
-      $code = $obfuscator->encode($value);
-      $tmp  = $obfuscator->decode($code);
+    $code = $obfuscator->encode(0);
+    $tmp  = $obfuscator->decode($code);
 
-      self::assertEquals($tmp, 0);
-    }
+    self::assertEquals($tmp, 0);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
