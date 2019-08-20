@@ -15,7 +15,7 @@ class IdentityObfuscatorTest extends TestCase
   /**
    * @inheritdoc
    */
-  public function setup()
+  public function setup(): void
   {
     mt_srand(crc32(microtime()));
   }
@@ -24,7 +24,7 @@ class IdentityObfuscatorTest extends TestCase
   /**
    * Test null and empty string are decoded to null.
    */
-  public function testDeObfuscate1()
+  public function testDeObfuscate1(): void
   {
     $obfuscator = IdentityObfuscatorFactory::getObfuscator('abc');
 
@@ -40,7 +40,7 @@ class IdentityObfuscatorTest extends TestCase
   /**
    * Test encode does nothing.
    */
-  public function testIdentity1()
+  public function testIdentity1(): void
   {
     $obfuscator = IdentityObfuscatorFactory::getObfuscator('abc');
     $id         = mt_rand(1, 2147483647);
@@ -49,12 +49,11 @@ class IdentityObfuscatorTest extends TestCase
     self::assertEquals($id, $code);
   }
 
-
   //--------------------------------------------------------------------------------------------------------------------
   /**
    * Test decode does nothing.
    */
-  public function testIdentity2()
+  public function testIdentity2(): void
   {
     $obfuscator = IdentityObfuscatorFactory::getObfuscator('abc');
     $code       = (string)mt_rand(1, 2147483647);
@@ -67,7 +66,7 @@ class IdentityObfuscatorTest extends TestCase
   /**
    * Test ID 0 is encoded en decoded correctly.
    */
-  public function testObfuscateDeObfuscate1()
+  public function testObfuscateDeObfuscate1(): void
   {
     $obfuscator = IdentityObfuscatorFactory::getObfuscator('abc');
 

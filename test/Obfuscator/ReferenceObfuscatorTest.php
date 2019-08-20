@@ -18,7 +18,7 @@ class ReferenceObfuscatorTest extends TestCase
    * Remove the leading underscore to enable this test. Takes about 7.85 hours on a Intel i5-3570K @ 3.40GHz processor
    * with PHP 5.4.16.
    */
-  public function _testObfuscateDeObfuscateAll()
+  public function _testObfuscateDeObfuscateAll(): void
   {
     $obfuscator = ReferenceObfuscatorFactory::getObfuscator('abc');
 
@@ -35,7 +35,7 @@ class ReferenceObfuscatorTest extends TestCase
   /**
    * @inheritdoc
    */
-  public function setup()
+  public function setup(): void
   {
     mt_srand(crc32(microtime()));
 
@@ -48,7 +48,7 @@ class ReferenceObfuscatorTest extends TestCase
   /**
    * Test null and empty string are decoded to null.
    */
-  public function testDeObfuscate1()
+  public function testDeObfuscate1(): void
   {
     $obfuscator = ReferenceObfuscatorFactory::getObfuscator('abc');
 
@@ -64,7 +64,7 @@ class ReferenceObfuscatorTest extends TestCase
   /**
    * Test null is encoded to null.
    */
-  public function testObfuscate1()
+  public function testObfuscate1(): void
   {
     $obfuscator = ReferenceObfuscatorFactory::getObfuscator('abc');
 
@@ -76,7 +76,7 @@ class ReferenceObfuscatorTest extends TestCase
   /**
    * Test ID 0 is encoded en decoded correctly.
    */
-  public function testObfuscate2()
+  public function testObfuscate2(): void
   {
     $obfuscator = ReferenceObfuscatorFactory::getObfuscator('abc');
 
@@ -90,7 +90,7 @@ class ReferenceObfuscatorTest extends TestCase
   /**
    * Test some random chosen databases IDs are encoded en decoded correctly.
    */
-  public function testObfuscateDeObfuscate1()
+  public function testObfuscateDeObfuscate1(): void
   {
     $obfuscator = ReferenceObfuscatorFactory::getObfuscator('abc');
 

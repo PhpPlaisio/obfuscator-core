@@ -18,7 +18,7 @@ class ReferenceObfuscatorFactoryTest extends TestCase
    * Remove the leading underscore to enable this test. Takes about 7.85 hours on a Intel i5-3570K @ 3.40GHz processor
    * with PHP 5.4.16.
    */
-  public function _testObfuscateDeObfuscateAll()
+  public function _testObfuscateDeObfuscateAll(): void
   {
     for ($value = 1; $value<4294967295; ++$value)
     {
@@ -33,7 +33,7 @@ class ReferenceObfuscatorFactoryTest extends TestCase
   /**
    * @inheritdoc
    */
-  public function setup()
+  public function setup(): void
   {
     mt_srand(crc32(microtime()));
 
@@ -46,7 +46,7 @@ class ReferenceObfuscatorFactoryTest extends TestCase
   /**
    * Test null and empty string are decoded to null.
    */
-  public function testDeObfuscate1()
+  public function testDeObfuscate1(): void
   {
     $codes = ['', null];
     foreach ($codes as $code)
@@ -60,7 +60,7 @@ class ReferenceObfuscatorFactoryTest extends TestCase
   /**
    * Test null is encoded to null.
    */
-  public function testObfuscate1()
+  public function testObfuscate1(): void
   {
     $code = ReferenceObfuscatorFactory::encode(null, 'abc');
     self::assertNull($code);
@@ -70,7 +70,7 @@ class ReferenceObfuscatorFactoryTest extends TestCase
   /**
    * Test ID 0 is encoded en decoded correctly.
    */
-  public function testObfuscate2()
+  public function testObfuscate2(): void
   {
     $code = ReferenceObfuscatorFactory::encode(0, 'abc');
     $tmp  = ReferenceObfuscatorFactory::decode($code, 'abc');
@@ -82,7 +82,7 @@ class ReferenceObfuscatorFactoryTest extends TestCase
   /**
    * Test some random chosen databases IDs are encoded en decoded correctly.
    */
-  public function testObfuscateDeObfuscate1()
+  public function testObfuscateDeObfuscate1(): void
   {
     for ($value = 1; $value<100000; ++$value)
     {
