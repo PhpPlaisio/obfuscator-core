@@ -6,6 +6,7 @@ namespace SetBased\Abc\Command;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use SetBased\Exception\RuntimeException;
+use SetBased\Stratum\Helper\RowSetHelper;
 use SetBased\Stratum\MySql\StaticDataLayer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Formatter\OutputFormatter;
@@ -430,8 +431,7 @@ order by table_name";
     $constants[] = sprintf('%s%s = %s;',
                            str_repeat(' ', $indent),
                            $this->getConfig('variable'),
-                           $variable,
-                           true);
+                           $variable);
 
     return $constants;
   }
@@ -445,7 +445,7 @@ order by table_name";
     $constants = $this->getConfig('constants', true);
     foreach ($constants as $tableName => $const)
     {
-      $check = StaticDataLayer::searchInRowSet('table_name', $tableName, $this->tables);
+      $check = RowSetHelper::searchInRowSet($this->tables, 'table_name', $tableName);
       if ($check===null)
       {
         unset($this->config['constants'][$tableName]);
