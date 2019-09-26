@@ -100,14 +100,14 @@ class DevelopmentObfuscatorTest extends TestCase
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Test a ID encoded and decoded ID with different labels throws an exception.
+   * Test an ID encoded and decoded ID with different labels throws an exception.
    */
   public function testObfuscateDeObfuscate2(): void
   {
     $id = mt_rand(0, 4294967295);
 
     $code = DevelopmentObfuscatorFactory::encode($id, 'abc');
-    $this->expectException(\LogicException::class);
+    $this->expectException(LogicException::class);
     DevelopmentObfuscatorFactory::decode($code, 'cba');
   }
 

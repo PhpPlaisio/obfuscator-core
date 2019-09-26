@@ -6,7 +6,7 @@ namespace SetBased\Abc\Command;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use SetBased\Exception\RuntimeException;
-use SetBased\Stratum\Helper\RowSetHelper;
+use SetBased\Stratum\Middle\Helper\RowSetHelper;
 use SetBased\Stratum\MySql\StaticDataLayer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Formatter\OutputFormatter;
