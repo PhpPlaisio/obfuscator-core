@@ -1,8 +1,7 @@
 build:
-    tests:
-        override:
-            -
-                command: './bin/phing unit'
-                coverage:
-                    file: 'test/coverage.xml'
-                    format: 'php-clover'
+  tests:
+    override:
+      - command: './bin/phing unit'
+        coverage:
+          file:   'test/coverage.xml'
+          format: 'php-clover'
