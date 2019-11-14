@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace SetBased\Abc\Command;
+namespace Plaisio\Command;
 
+use Exception;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use SetBased\Exception\RuntimeException;
@@ -114,7 +115,7 @@ class ReferenceObfuscatorCommand extends Command
    * @param InputInterface  $input  An InputInterface instance.
    * @param OutputInterface $output An OutputInterface instance.
    *
-   * @throws \Exception
+   * @throws Exception
    */
   protected function initialize(InputInterface $input, OutputInterface $output)
   {

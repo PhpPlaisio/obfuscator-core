@@ -1,4 +1,4 @@
-<project name="ABC-Framework" default="build" basedir=".">
+<project name="PhpPlaisio" default="build" basedir=".">
     <target name="build">
     </target>
 

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace SetBased\Abc\Obfuscator;
+namespace Plaisio\Obfuscator;
 
 /**
  * A factory for obfuscators that do not obfuscate at all.

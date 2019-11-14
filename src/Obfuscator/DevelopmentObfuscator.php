@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace SetBased\Abc\Obfuscator;
+namespace Plaisio\Obfuscator;
 
 /**
  * An Obfuscator for development environments only.
@@ -21,7 +21,6 @@ class DevelopmentObfuscator implements Obfuscator
   private $alias;
 
   //--------------------------------------------------------------------------------------------------------------------
-
   /**
    * Object constructor.
    *

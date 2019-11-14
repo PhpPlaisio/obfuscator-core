@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace SetBased\Abc\Obfuscator;
+namespace Plaisio\Obfuscator;
 
 /**
  * An implementation of Obfuscator that does not obfuscate database IDs.

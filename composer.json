@@ -1,8 +1,8 @@
 {
-  "name": "setbased/abc-obfuscator-core",
-  "description": "ABC-Framework: Core Obfuscator",
+  "name": "plaisio/obfuscator-core",
+  "description": "PhpPlaisio: Core Obfuscator",
   "keywords": [
-    "ABC-Framework",
+    "PhpPlaisio",
     "Obfuscate",
     "Obfuscator"
   ],
@@ -10,12 +10,12 @@
   "require": {
     "php": ">=7.1.0",
     "ext-json": "*",
+    "plaisio/obfuscator": "^3.0",
     "psr/log": "^1.1.0",
-    "setbased/abc-obfuscator": "^2.0.0",
-    "setbased/exception": "^2.0.0",
+    "setbased/exception": "^2.0",
     "setbased/php-stratum-middle": "^5.0.1",
     "setbased/php-stratum-mysql": "^4.1.0",
-    "symfony/console": "^4.0.0"
+    "symfony/console": "^4.0"
   },
   "require-dev": {
     "phing/phing": "^2.0.0",
@@ -23,12 +23,12 @@
   },
   "autoload": {
     "psr-4": {
-      "SetBased\\Abc\\": "src/"
+      "Plaisio\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "SetBased\\Abc\\Test\\": "test/"
+      "Plaisio\\Test\\": "test/"
     }
   },
   "config": {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace SetBased\Abc\Obfuscator;
+namespace Plaisio\Obfuscator;
 
 /**
  * Class for obfuscator database ID using two very simple encryption techniques: a (very weak) encryption method and a

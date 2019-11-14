@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace SetBased\Abc\Obfuscator\Mangler;
+namespace Plaisio\Obfuscator\Mangler;
 
 /**
  * Interface for deriving labels from table metadata.

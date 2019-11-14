@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace SetBased\Abc\Test\Obfuscator;
+namespace Plaisio\Test\Obfuscator;
 
 use PHPUnit\Framework\TestCase;
-use SetBased\Abc\Obfuscator\IdentityObfuscatorFactory;
+use Plaisio\Obfuscator\IdentityObfuscatorFactory;
 
 /**
  * Test cases for IdentityObfuscator.

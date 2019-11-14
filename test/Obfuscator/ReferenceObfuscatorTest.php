@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace SetBased\Abc\Test\Obfuscator;
+namespace Plaisio\Test\Obfuscator;
 
 use PHPUnit\Framework\TestCase;
-use SetBased\Abc\Obfuscator\ReferenceObfuscatorFactory;
+use Plaisio\Obfuscator\ReferenceObfuscatorFactory;
 
 /**
  * Test cases for ReferenceObfuscator.
