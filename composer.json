@@ -10,7 +10,7 @@
   "require": {
     "php": ">=7.3",
     "ext-json": "*",
-    "plaisio/obfuscator": "^1.0",
+    "plaisio/obfuscator": "^1.1",
     "psr/log": "^1.1",
     "setbased/exception": "^2.1",
     "setbased/php-stratum-middle": "^5.2",
