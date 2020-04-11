@@ -8,7 +8,8 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use SetBased\Exception\RuntimeException;
 use SetBased\Stratum\Middle\Helper\RowSetHelper;
-use SetBased\Stratum\MySql\StaticDataLayer;
+use SetBased\Stratum\MySql\MySqlDataLayer;
+use SetBased\Stratum\MySql\MySqlDefaultConnector;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
@@ -199,12 +200,14 @@ where table_schema = database()
 and   extra        = 'auto_increment'
 order by table_name";
 
-    StaticDataLayer::connect($this->getConfig('database/host_name'),
-                             $this->getConfig('database/user_name'),
-                             $this->getConfig('database/password'),
-                             $this->getConfig('database/database_name'));
-    $tables = StaticDataLayer::executeRows($query);
-    StaticDataLayer::disconnect();
+    $connector = new MySqlDefaultConnector($this->getConfig('database/host_name'),
+                                           $this->getConfig('database/user_name'),
+                                           $this->getConfig('database/password'),
+                                           $this->getConfig('database/database_name'));
+    $dl        = new MySqlDataLayer($connector);
+    $dl->connect();
+    $tables = $dl->executeRows($query);
+    $dl->disconnect();
 
     // Remove the table to be ignored.
     $ignore = $this->getConfig('ignore', false);
