@@ -3,25 +3,20 @@ declare(strict_types=1);
 
 namespace Plaisio\Command;
 
-use Exception;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LogLevel;
+use Plaisio\Console\Command\PlaisioCommand;
+use Plaisio\Console\Helper\TwoPhaseWrite;
 use SetBased\Exception\RuntimeException;
 use SetBased\Stratum\Middle\Helper\RowSetHelper;
 use SetBased\Stratum\MySql\MySqlDataLayer;
 use SetBased\Stratum\MySql\MySqlDefaultConnector;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Formatter\OutputFormatter;
-use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class for creating parameters for reference obfuscator.
  */
-class ReferenceObfuscatorCommand extends Command
+class ReferenceObfuscatorCommand extends PlaisioCommand
 {
   //--------------------------------------------------------------------------------------------------------------------
   /**
@@ -48,13 +43,6 @@ class ReferenceObfuscatorCommand extends Command
                                'mediumint' => 3,
                                'int'       => 4,
                                'bigint'    => 8];
-
-  /**
-   * The PSR-3 logger.
-   *
-   * @var LoggerInterface
-   */
-  private $logger;
 
   /**
    * Metadata of all tables with auto increment columns.
@@ -88,8 +76,8 @@ class ReferenceObfuscatorCommand extends Command
    */
   protected function configure()
   {
-    $this->setName('dev:reference-obfuscator-generator')
-         ->setDescription('Generates the keys and mask for the Reference Obfuscator')
+    $this->setName('plaisio:reference-obfuscator-generator')
+         ->setDescription('Generates the keys and masks for the Reference Obfuscator')
          ->addArgument('config.json', InputArgument::REQUIRED, 'The configuration file');
   }
 
@@ -99,6 +87,8 @@ class ReferenceObfuscatorCommand extends Command
    */
   protected function execute(InputInterface $input, OutputInterface $output)
   {
+    $this->io->section('Plaisio: Reference Obfuscator Generator');
+
     $this->configFileName = $input->getArgument('config.json');
     $this->readConfigFile($this->configFileName);
 
@@ -111,33 +101,6 @@ class ReferenceObfuscatorCommand extends Command
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Initializes the PSR-3 logger.
-   *
-   * @param InputInterface  $input  An InputInterface instance.
-   * @param OutputInterface $output An OutputInterface instance.
-   *
-   * @throws Exception
-   */
-  protected function initialize(InputInterface $input, OutputInterface $output)
-  {
-    $verbosityLevelMap = [LogLevel::NOTICE => OutputInterface::VERBOSITY_NORMAL];
-    $this->logger      = new ConsoleLogger($output, $verbosityLevelMap);
-
-    // Create style for database objects.
-    $style = new OutputFormatterStyle(null, null, ['bold']);
-    $output->getFormatter()->setStyle('dbo', $style);
-
-    // Create style for file and directory names.
-    $style = new OutputFormatterStyle(null, null, ['bold']);
-    $output->getFormatter()->setStyle('fso', $style);
-
-    // Create style for SQL statements.
-    $style = new OutputFormatterStyle('magenta', null, ['bold']);
-    $output->getFormatter()->setStyle('sql', $style);
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
-  /**
    * Reads configuration parameters from the configuration file.
    *
    * @param string $configFilename The name of the configuration file.
@@ -146,43 +109,6 @@ class ReferenceObfuscatorCommand extends Command
   {
     $content      = file_get_contents($configFilename);
     $this->config = json_decode($content, true);
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
-  /**
-   * Writes a file in two phase to the filesystem.
-   *
-   * First write the data to a temporary file (in the same directory) and than renames the temporary file. If the file
-   * already exists and its content is equal to the data that must be written no action  is taken. This has the
-   * following advantages:
-   * * In case of some write error (e.g. disk full) the original file is kept in tact and no file with partially data
-   * is written.
-   * * Renaming a file is atomic. So, running processes will never read a partially written data.
-   *
-   * @param string $filename The name of the file were the data must be stored.
-   * @param string $data     The data that must be written.
-   */
-  protected function writeTwoPhases(string $filename, string $data): void
-  {
-    $write_flag = true;
-    if (file_exists($filename))
-    {
-      $oldData = file_get_contents($filename);
-      if ($data==$oldData) $write_flag = false;
-    }
-
-    if ($write_flag)
-    {
-      $tmpFilename = $filename.'.tmp';
-      file_put_contents($tmpFilename, $data);
-      rename($tmpFilename, $filename);
-
-      $this->logger->notice(sprintf('Wrote <fso>%s</fso>', OutputFormatter::escape($filename)));
-    }
-    else
-    {
-      $this->logger->notice(sprintf('File <fso>%s</fso> is up to date', OutputFormatter::escape($filename)));
-    }
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -318,7 +244,7 @@ order by table_name";
       if (!isset($defined[$table['table_name']]))
       {
         // Key and mask is not yet defined for $label. Generate key and mask.
-        $this->logger->notice(sprintf('Generating key and mask for table <dbo>%s</dbo>', $table['table_name']));
+        $this->io->write(sprintf('Generating key and mask for table <dbo>%s</dbo>', $table['table_name']));
 
         $size = $this->integerTypeSizes[$table['data_type']];
         $key  = rand(1, pow(2, 16) - 1);
@@ -466,7 +392,8 @@ order by table_name";
     // Sort array with labels, keys and masks by label.
     ksort($this->config['constants']);
 
-    $this->writeTwoPhases($this->configFileName, json_encode($this->config, JSON_PRETTY_PRINT));
+    $helper = new TwoPhaseWrite($this->io);
+    $helper->write($this->configFileName, json_encode($this->config, JSON_PRETTY_PRINT));
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -476,7 +403,7 @@ order by table_name";
   private function writeConstant(): void
   {
     $source = file_get_contents($this->getConfig('file'));
-    $lines  = explode("\n", $source);
+    $lines  = explode(PHP_EOL, $source);
 
     // Search for the lines where to insert and replace constant declaration statements.
     $lineNumbers = $this->extractLines($source);
@@ -495,7 +422,8 @@ order by table_name";
     $lines = array_merge($tmp1, $constants, $tmp2);
 
     // Save the file.
-    $this->writeTwoPhases($this->getConfig('file'), implode("\n", $lines));
+    $helper = new TwoPhaseWrite($this->io);
+    $helper->write($this->getConfig('file'), implode(PHP_EOL, $lines));
   }
 
   //--------------------------------------------------------------------------------------------------------------------
