@@ -87,7 +87,7 @@ class ReferenceObfuscatorCommand extends PlaisioCommand
    */
   protected function execute(InputInterface $input, OutputInterface $output)
   {
-    $this->io->section('Plaisio: Reference Obfuscator Generator');
+    $this->io->title('Plaisio: Reference Obfuscator Generator');
 
     $this->configFileName = $input->getArgument('config.json');
     $this->readConfigFile($this->configFileName);
