@@ -16,7 +16,7 @@ class ReferenceObfuscatorFactory implements ObfuscatorFactory
    *
    * @var array[]
    *
-   * @setbased.abc.obfuscator
+   * @plaisio.obfuscator.labels
    */
   public static $labels = [];
 

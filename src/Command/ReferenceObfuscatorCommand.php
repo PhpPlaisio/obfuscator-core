@@ -150,7 +150,7 @@ order by table_name";
   /**
    * Searches for 3 lines in the source code with reference obfuscator parameters. The lines are:
    * <ul>
-   * <li> The first line of the doc block with the annotation '@setbased.abc.obfuscator'.
+   * <li> The first line of the doc block with the annotation '@plaisio.obfuscator.labels'.
    * <li> The last line of this doc block.
    * <li> The last line of array declarations directly after the doc block.
    * </ul>
@@ -168,7 +168,7 @@ order by table_name";
     $line2 = null;
     $line3 = null;
 
-    // Find annotation @setbased.abc.obfuscator
+    // Find annotation @plaisio.obfuscator.labels
     $step = 1;
     foreach ($tokens as $key => $token)
     {
@@ -178,7 +178,7 @@ order by table_name";
           // Step 1: Find doc comment with annotation.
           if (is_array($token) && $token[0]==T_DOC_COMMENT)
           {
-            if (strpos($token[1], '@setbased.abc.obfuscator')!==false)
+            if (strpos($token[1], '@plaisio.obfuscator.labels')!==false)
             {
               $line1 = $token[2];
               $step  = 2;
