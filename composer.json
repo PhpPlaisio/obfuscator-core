@@ -11,7 +11,7 @@
     "php": ">=7.3",
     "ext-json": "*",
     "plaisio/console": "^0.2.10",
-    "plaisio/obfuscator": "^1.1",
+    "plaisio/obfuscator": "^1.2",
     "psr/log": "^1.1",
     "setbased/exception": "^2.1",
     "setbased/php-stratum-middle": "^5.2",

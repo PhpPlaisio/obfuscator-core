@@ -5,6 +5,7 @@ namespace Plaisio\Test\Obfuscator;
 
 use PHPUnit\Framework\TestCase;
 use Plaisio\Obfuscator\DevelopmentObfuscatorFactory;
+use Plaisio\Obfuscator\Exception\DecodeException;
 use SetBased\Exception\LogicException;
 
 /**
@@ -43,7 +44,7 @@ class DevelopmentObfuscatorTest extends TestCase
    */
   public function testDeObfuscateNonInt1(): void
   {
-    $this->expectException(\LogicException::class);
+    $this->expectException(DecodeException::class);
     DevelopmentObfuscatorFactory::decode('abc_abc', 'abc');
   }
 

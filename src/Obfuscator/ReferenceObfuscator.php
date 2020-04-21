@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Plaisio\Obfuscator;
 
+use Plaisio\Obfuscator\Exception\CoreDecodeException;
+
 /**
  * Class for obfuscator database ID using two very simple encryption techniques: a (very weak) encryption method and a
  * bit mask with the same length as the database ID.
@@ -70,8 +72,27 @@ class ReferenceObfuscator implements Obfuscator
   {
     if ($code===null || $code==='') return null;
 
+    if (version_compare(PHP_VERSION, '7.4')>=0)
+    {
+      try
+      {
+        $val = hexdec($code);
+      }
+      catch (\Throwable $exception)
+      {
+        throw new CoreDecodeException([$exception], 'Not a valid obfuscated database ID: %s', $code);
+      }
+    }
+    else
+    {
+      if (preg_match('/^[0-9a-f]+$/', $code)!=1)
+      {
+        throw new CoreDecodeException('Not a valid obfuscated database ID: %s', $code);
+      }
+      $val = hexdec($code);
+    }
+
     $result = 0;
-    $val    = hexdec($code);
     $k      = 1;
     for ($i = 0; $i<$length; $i++)
     {
@@ -102,8 +123,8 @@ class ReferenceObfuscator implements Obfuscator
   {
     if ($id===null) return null;
 
-    $result = 0;
     $val    = $id ^ $mask;
+    $result = 0;
     $k      = 1;
     for ($i = 0; $i<$length; $i++)
     {

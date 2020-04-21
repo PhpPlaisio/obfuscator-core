@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Plaisio\Test\Obfuscator;
 
 use PHPUnit\Framework\TestCase;
+use Plaisio\Obfuscator\Exception\DecodeException;
 use Plaisio\Obfuscator\ReferenceObfuscatorFactory;
 
 /**
@@ -58,6 +59,18 @@ class ReferenceObfuscatorTest extends TestCase
       $id = $obfuscator->decode($code);
       self::assertNull($id);
     }
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * Test an invalid code to decode.
+   */
+  public function testInvalidValue(): void
+  {
+    $obfuscator = ReferenceObfuscatorFactory::getObfuscator('abc');
+
+    $this->expectException(DecodeException::class);
+    $obfuscator->decode('123abcg');
   }
 
   //--------------------------------------------------------------------------------------------------------------------

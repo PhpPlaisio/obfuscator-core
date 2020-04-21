@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Plaisio\Obfuscator;
 
+use Plaisio\Obfuscator\Exception\CoreDecodeException;
 use SetBased\Exception\LogicException;
 
 /**
@@ -27,7 +28,7 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
 
     if (preg_match('/^\d+$/', $id)!=1)
     {
-      throw new LogicException("Integer expected, got '%s'", (string)$id);
+      throw new CoreDecodeException('Not a valid obfuscated database ID: %s', $code);
     }
 
     return (int)$id;
