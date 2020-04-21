@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Plaisio\Test\Obfuscator;
+namespace Plaisio\Obfuscator\Test;
 
 use PHPUnit\Framework\TestCase;
 use Plaisio\Obfuscator\IdentityObfuscatorFactory;

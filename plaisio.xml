@@ -1,5 +1,5 @@
 <plaisio>
     <commands>
-        <command name="plaisio:reference-obfuscator-generator">\Plaisio\Command\ReferenceObfuscatorCommand</command>
+        <command name="plaisio:reference-obfuscator-generator">\Plaisio\Obfuscator\Command\ReferenceObfuscatorCommand</command>
     </commands>
 </plaisio>

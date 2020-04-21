@@ -24,12 +24,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Plaisio\\": "src/"
+      "Plaisio\\Obfuscator\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Plaisio\\Test\\": "test/"
+      "Plaisio\\Obfuscator\\Test\\": "test/"
     }
   },
   "config": {

@@ -1,18 +1,34 @@
 <?php
 declare(strict_types=1);
 
-namespace Plaisio\Test\Obfuscator;
+namespace Plaisio\Obfuscator\Test;
 
 use PHPUnit\Framework\TestCase;
-use Plaisio\Obfuscator\DevelopmentObfuscatorFactory;
-use Plaisio\Obfuscator\Exception\DecodeException;
-use SetBased\Exception\LogicException;
+use Plaisio\Obfuscator\ReferenceObfuscatorFactory;
 
 /**
- * Test cases for DevelopmentObfuscator.
+ * Test cases for ReferenceObfuscatorFactory.
  */
-class DevelopmentObfuscatorTest extends TestCase
+class ReferenceObfuscatorFactoryTest extends TestCase
 {
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * Test all database IDs are encoded en decoded correctly.
+   *
+   * Remove the leading underscore to enable this test. Takes about 7.85 hours on a Intel i5-3570K @ 3.40GHz processor
+   * with PHP 5.4.16.
+   */
+  public function _testObfuscateDeObfuscateAll(): void
+  {
+    for ($value = 1; $value<4294967295; ++$value)
+    {
+      $code = ReferenceObfuscatorFactory::encode($value, 'abc');
+      $tmp  = ReferenceObfuscatorFactory::decode($code, 'abc');
+
+      self::assertEquals($value, $tmp);
+    }
+  }
+
   //--------------------------------------------------------------------------------------------------------------------
   /**
    * @inheritdoc
@@ -20,6 +36,10 @@ class DevelopmentObfuscatorTest extends TestCase
   public function setup(): void
   {
     mt_srand(crc32(microtime()));
+
+    $mask                               = mt_rand(2147483647, 4294967295);
+    $key                                = mt_rand(0, 65535);
+    ReferenceObfuscatorFactory::$labels = ['abc' => [4, $key, $mask]];
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -28,24 +48,12 @@ class DevelopmentObfuscatorTest extends TestCase
    */
   public function testDeObfuscate1(): void
   {
-    $obfuscator = DevelopmentObfuscatorFactory::getObfuscator('abc');
-
     $codes = ['', null];
     foreach ($codes as $code)
     {
-      $id = $obfuscator->decode($code);
+      $id = ReferenceObfuscatorFactory::decode($code, 'abc');
       self::assertNull($id);
     }
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
-  /**
-   * Test a non integer ID.
-   */
-  public function testDeObfuscateNonInt1(): void
-  {
-    $this->expectException(DecodeException::class);
-    DevelopmentObfuscatorFactory::decode('abc_abc', 'abc');
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -54,9 +62,7 @@ class DevelopmentObfuscatorTest extends TestCase
    */
   public function testObfuscate1(): void
   {
-    $obfuscator = DevelopmentObfuscatorFactory::getObfuscator('abc');
-
-    $code = $obfuscator->encode(null);
+    $code = ReferenceObfuscatorFactory::encode(null, 'abc');
     self::assertNull($code);
   }
 
@@ -66,10 +72,8 @@ class DevelopmentObfuscatorTest extends TestCase
    */
   public function testObfuscate2(): void
   {
-    $obfuscator = DevelopmentObfuscatorFactory::getObfuscator('abc');
-
-    $code = $obfuscator->encode(0);
-    $tmp  = $obfuscator->decode($code);
+    $code = ReferenceObfuscatorFactory::encode(0, 'abc');
+    $tmp  = ReferenceObfuscatorFactory::decode($code, 'abc');
 
     self::assertEquals($tmp, 0);
   }
@@ -80,36 +84,21 @@ class DevelopmentObfuscatorTest extends TestCase
    */
   public function testObfuscateDeObfuscate1(): void
   {
-    $obfuscator = DevelopmentObfuscatorFactory::getObfuscator('abc');
-
     for ($value = 1; $value<100000; ++$value)
     {
-      $code = $obfuscator->encode($value);
-      $tmp  = $obfuscator->decode($code);
+      $code = ReferenceObfuscatorFactory::encode($value, 'abc');
+      $tmp  = ReferenceObfuscatorFactory::decode($code, 'abc');
 
       self::assertEquals($value, $tmp);
     }
 
-    for ($value = 100000; $value<=2147483647; $value += mt_rand(1, 10000000))
+    for ($value = 100000; $value<=2147483647; $value += mt_rand(1, 1000000))
     {
-      $code = $obfuscator->encode($value);
-      $tmp  = $obfuscator->decode($code);
+      $code = ReferenceObfuscatorFactory::encode($value, 'abc');
+      $tmp  = ReferenceObfuscatorFactory::decode($code, 'abc');
 
       self::assertEquals($value, $tmp);
     }
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
-  /**
-   * Test an ID encoded and decoded ID with different labels throws an exception.
-   */
-  public function testObfuscateDeObfuscate2(): void
-  {
-    $id = mt_rand(0, 4294967295);
-
-    $code = DevelopmentObfuscatorFactory::encode($id, 'abc');
-    $this->expectException(LogicException::class);
-    DevelopmentObfuscatorFactory::decode($code, 'cba');
   }
 
   //--------------------------------------------------------------------------------------------------------------------

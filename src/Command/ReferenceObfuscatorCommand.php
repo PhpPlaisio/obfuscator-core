@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Plaisio\Command;
+namespace Plaisio\Obfuscator\Command;
 
 use Plaisio\Console\Command\PlaisioCommand;
 use Plaisio\Console\Helper\TwoPhaseWrite;
