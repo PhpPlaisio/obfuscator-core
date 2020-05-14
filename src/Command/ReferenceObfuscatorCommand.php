@@ -6,6 +6,7 @@ namespace Plaisio\Obfuscator\Command;
 use Plaisio\Console\Command\PlaisioCommand;
 use Plaisio\Console\Helper\TwoPhaseWrite;
 use SetBased\Exception\RuntimeException;
+use SetBased\Helper\Cast;
 use SetBased\Stratum\Middle\Helper\RowSetHelper;
 use SetBased\Stratum\MySql\MySqlDataLayer;
 use SetBased\Stratum\MySql\MySqlDefaultConnector;
@@ -89,7 +90,7 @@ class ReferenceObfuscatorCommand extends PlaisioCommand
   {
     $this->io->title('Plaisio: Reference Obfuscator Generator');
 
-    $this->configFileName = $input->getArgument('config.json');
+    $this->configFileName = Cast::toManString($input->getArgument('config.json'));
     $this->readConfigFile($this->configFileName);
 
     $this->extractDatabaseIds();
