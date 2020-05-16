@@ -14,6 +14,17 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
   //--------------------------------------------------------------------------------------------------------------------
   /**
    * @inheritdoc
+   *
+   * @return DevelopmentObfuscator
+   */
+  public static function create(string $alias): Obfuscator
+  {
+    return new DevelopmentObfuscator($alias);
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * @inheritdoc
    */
   public static function decode(?string $code, string $alias): ?int
   {
@@ -43,17 +54,6 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
     if ($id===null) return null;
 
     return $alias.'_'.$id;
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
-  /**
-   * @inheritdoc
-   *
-   * @return DevelopmentObfuscator
-   */
-  public static function getObfuscator(string $alias): Obfuscator
-  {
-    return new DevelopmentObfuscator($alias);
   }
 
   //--------------------------------------------------------------------------------------------------------------------

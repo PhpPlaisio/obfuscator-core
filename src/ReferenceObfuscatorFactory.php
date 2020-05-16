@@ -23,6 +23,24 @@ class ReferenceObfuscatorFactory implements ObfuscatorFactory
   //--------------------------------------------------------------------------------------------------------------------
   /**
    * @inheritdoc
+   *
+   * @return ReferenceObfuscator
+   */
+  public static function create(string $alias): Obfuscator
+  {
+    if (!isset(self::$labels[$alias]))
+    {
+      throw new LogicException("Unknown label '%s'", $alias);
+    }
+
+    return new ReferenceObfuscator(self::$labels[$alias][0],
+                                   self::$labels[$alias][1],
+                                   self::$labels[$alias][2]);
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * @inheritdoc
    */
   public static function decode(?string $code, string $alias): ?int
   {
@@ -52,24 +70,6 @@ class ReferenceObfuscatorFactory implements ObfuscatorFactory
                                         self::$labels[$alias][0],
                                         self::$labels[$alias][1],
                                         self::$labels[$alias][2]);
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
-  /**
-   * @inheritdoc
-   *
-   * @return ReferenceObfuscator
-   */
-  public static function getObfuscator(string $alias): Obfuscator
-  {
-    if (!isset(self::$labels[$alias]))
-    {
-      throw new LogicException("Unknown label '%s'", $alias);
-    }
-
-    return new ReferenceObfuscator(self::$labels[$alias][0],
-                                   self::$labels[$alias][1],
-                                   self::$labels[$alias][2]);
   }
 
   //--------------------------------------------------------------------------------------------------------------------

@@ -28,7 +28,7 @@ class DevelopmentObfuscatorTest extends TestCase
    */
   public function testDeObfuscate1(): void
   {
-    $obfuscator = DevelopmentObfuscatorFactory::getObfuscator('abc');
+    $obfuscator = DevelopmentObfuscatorFactory::create('abc');
 
     $codes = ['', null];
     foreach ($codes as $code)
@@ -54,7 +54,7 @@ class DevelopmentObfuscatorTest extends TestCase
    */
   public function testObfuscate1(): void
   {
-    $obfuscator = DevelopmentObfuscatorFactory::getObfuscator('abc');
+    $obfuscator = DevelopmentObfuscatorFactory::create('abc');
 
     $code = $obfuscator->encode(null);
     self::assertNull($code);
@@ -66,7 +66,7 @@ class DevelopmentObfuscatorTest extends TestCase
    */
   public function testObfuscate2(): void
   {
-    $obfuscator = DevelopmentObfuscatorFactory::getObfuscator('abc');
+    $obfuscator = DevelopmentObfuscatorFactory::create('abc');
 
     $code = $obfuscator->encode(0);
     $tmp  = $obfuscator->decode($code);
@@ -80,7 +80,7 @@ class DevelopmentObfuscatorTest extends TestCase
    */
   public function testObfuscateDeObfuscate1(): void
   {
-    $obfuscator = DevelopmentObfuscatorFactory::getObfuscator('abc');
+    $obfuscator = DevelopmentObfuscatorFactory::create('abc');
 
     for ($value = 1; $value<100000; ++$value)
     {

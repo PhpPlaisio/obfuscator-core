@@ -21,7 +21,7 @@ class ReferenceObfuscatorTest extends TestCase
    */
   public function _testObfuscateDeObfuscateAll(): void
   {
-    $obfuscator = ReferenceObfuscatorFactory::getObfuscator('abc');
+    $obfuscator = ReferenceObfuscatorFactory::create('abc');
 
     for ($value = 1; $value<4294967295; ++$value)
     {
@@ -51,7 +51,7 @@ class ReferenceObfuscatorTest extends TestCase
    */
   public function testDeObfuscate1(): void
   {
-    $obfuscator = ReferenceObfuscatorFactory::getObfuscator('abc');
+    $obfuscator = ReferenceObfuscatorFactory::create('abc');
 
     $codes = ['', null];
     foreach ($codes as $code)
@@ -67,7 +67,7 @@ class ReferenceObfuscatorTest extends TestCase
    */
   public function testInvalidValue(): void
   {
-    $obfuscator = ReferenceObfuscatorFactory::getObfuscator('abc');
+    $obfuscator = ReferenceObfuscatorFactory::create('abc');
 
     $this->expectException(DecodeException::class);
     $obfuscator->decode('123abcg');
@@ -79,7 +79,7 @@ class ReferenceObfuscatorTest extends TestCase
    */
   public function testObfuscate1(): void
   {
-    $obfuscator = ReferenceObfuscatorFactory::getObfuscator('abc');
+    $obfuscator = ReferenceObfuscatorFactory::create('abc');
 
     $code = $obfuscator->encode(null);
     self::assertNull($code);
@@ -91,7 +91,7 @@ class ReferenceObfuscatorTest extends TestCase
    */
   public function testObfuscate2(): void
   {
-    $obfuscator = ReferenceObfuscatorFactory::getObfuscator('abc');
+    $obfuscator = ReferenceObfuscatorFactory::create('abc');
 
     $code = $obfuscator->encode(0);
     $tmp  = $obfuscator->decode($code);
@@ -105,7 +105,7 @@ class ReferenceObfuscatorTest extends TestCase
    */
   public function testObfuscateDeObfuscate1(): void
   {
-    $obfuscator = ReferenceObfuscatorFactory::getObfuscator('abc');
+    $obfuscator = ReferenceObfuscatorFactory::create('abc');
 
     for ($value = 1; $value<100000; ++$value)
     {

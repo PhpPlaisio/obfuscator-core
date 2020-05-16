@@ -26,7 +26,7 @@ class IdentityObfuscatorTest extends TestCase
    */
   public function testDeObfuscate1(): void
   {
-    $obfuscator = IdentityObfuscatorFactory::getObfuscator('abc');
+    $obfuscator = IdentityObfuscatorFactory::create('abc');
 
     $codes = ['', null];
     foreach ($codes as $code)
@@ -42,7 +42,7 @@ class IdentityObfuscatorTest extends TestCase
    */
   public function testIdentity1(): void
   {
-    $obfuscator = IdentityObfuscatorFactory::getObfuscator('abc');
+    $obfuscator = IdentityObfuscatorFactory::create('abc');
     $id         = mt_rand(1, 2147483647);
     $code       = $obfuscator->encode($id);
 
@@ -55,7 +55,7 @@ class IdentityObfuscatorTest extends TestCase
    */
   public function testIdentity2(): void
   {
-    $obfuscator = IdentityObfuscatorFactory::getObfuscator('abc');
+    $obfuscator = IdentityObfuscatorFactory::create('abc');
     $code       = (string)mt_rand(1, 2147483647);
     $id         = $obfuscator->decode($code);
 
@@ -68,7 +68,7 @@ class IdentityObfuscatorTest extends TestCase
    */
   public function testObfuscateDeObfuscate1(): void
   {
-    $obfuscator = IdentityObfuscatorFactory::getObfuscator('abc');
+    $obfuscator = IdentityObfuscatorFactory::create('abc');
 
     $code = $obfuscator->encode(0);
     $tmp  = $obfuscator->decode($code);
