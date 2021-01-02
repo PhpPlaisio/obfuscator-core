@@ -245,7 +245,7 @@ order by table_name";
       if (!isset($defined[$table['table_name']]))
       {
         // Key and mask is not yet defined for $label. Generate key and mask.
-        $this->io->write(sprintf('Generating key and mask for table <dbo>%s</dbo>', $table['table_name']));
+        $this->io->text(sprintf('Generating key and mask for table <dbo>%s</dbo>', $table['table_name']));
 
         $size = $this->integerTypeSizes[$table['data_type']];
         $key  = rand(1, pow(2, 16) - 1);
