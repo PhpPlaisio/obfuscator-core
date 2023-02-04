@@ -73,7 +73,7 @@ class IdentityObfuscatorTest extends TestCase
     $code = $obfuscator->encode(0);
     $tmp  = $obfuscator->decode($code);
 
-    self::assertEquals($tmp, 0);
+    self::assertEquals(0, $tmp);
   }
 
   //--------------------------------------------------------------------------------------------------------------------

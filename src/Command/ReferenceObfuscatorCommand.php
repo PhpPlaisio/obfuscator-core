@@ -25,32 +25,32 @@ class ReferenceObfuscatorCommand extends PlaisioCommand
    *
    * @var array<string,mixed>
    */
-  private $config;
+  private array $config;
 
   /**
    * The name of the configuration file.
    *
    * @var string
    */
-  private $configFileName;
+  private string $configFileName;
 
   /**
    * Number of bytes of MySQL integer types.
    *
    * @var array
    */
-  private $integerTypeSizes = ['tinyint'   => 1,
-                               'smallint'  => 2,
-                               'mediumint' => 3,
-                               'int'       => 4,
-                               'bigint'    => 8];
+  private array $integerTypeSizes = ['tinyint'   => 1,
+                                     'smallint'  => 2,
+                                     'mediumint' => 3,
+                                     'int'       => 4,
+                                     'bigint'    => 8];
 
   /**
    * Metadata of all tables with auto increment columns.
    *
    * @var array[]
    */
-  private $tables;
+  private array $tables;
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
@@ -86,7 +86,7 @@ class ReferenceObfuscatorCommand extends PlaisioCommand
   /**
    * @inheritdoc
    */
-  protected function execute(InputInterface $input, OutputInterface $output)
+  protected function execute(InputInterface $input, OutputInterface $output): int
   {
     $this->io->title('Plaisio: Reference Obfuscator Generator');
 
@@ -282,7 +282,7 @@ order by table_name";
    *
    * @return mixed
    */
-  private function getConfig(string $path, bool $mandatory = true)
+  private function getConfig(string $path, bool $mandatory = true): mixed
   {
     $ret  = null;
     $keys = explode('/', $path);

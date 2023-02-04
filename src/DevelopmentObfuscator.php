@@ -18,7 +18,7 @@ class DevelopmentObfuscator implements Obfuscator
    *
    * @var string
    */
-  private $alias;
+  private string $alias;
 
   //--------------------------------------------------------------------------------------------------------------------
   /**

@@ -24,23 +24,24 @@ class ReferenceObfuscator implements Obfuscator
    *
    * @var int
    */
-  private $bitMask;
+  private int $bitMask;
 
   /**
    * The key in the encryption algorithm. Must be a number between 0 and 65535.
    *
    * @var int
    */
-  private $key;
+  private int $key;
 
   /**
    * The maximum length (in bytes) of the database ID.
    *
    * @var int
    */
-  private $length;
+  private int $length;
 
   //--------------------------------------------------------------------------------------------------------------------
+
   /**
    * Object constructor.
    *
@@ -58,13 +59,13 @@ class ReferenceObfuscator implements Obfuscator
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * De-obfuscates a obfuscated database ID.
+   * De-obfuscates an obfuscated database ID.
    *
-   * @param string $code   The obfuscated database ID.
-   * @param int    $length The length (in bytes) of the (original) database ID.
-   * @param int    $key    The encryption key. Must be a number between 0 and 65535.
-   * @param int    $mask   The bit mask. The length (in bytes) of this bit mask must be equal to the maximum length
-   *                       (in bytes) of the database ID.
+   * @param string|null $code   The obfuscated database ID.
+   * @param int         $length The length (in bytes) of the (original) database ID.
+   * @param int         $key    The encryption key. Must be a number between 0 and 65535.
+   * @param int         $mask   The bit mask. The length (in bytes) of this bit mask must be equal to the maximum length
+   *                            (in bytes) of the database ID.
    *
    * @return int|null
    */
@@ -72,24 +73,13 @@ class ReferenceObfuscator implements Obfuscator
   {
     if ($code===null || $code==='') return null;
 
-    if (version_compare(PHP_VERSION, '7.4')>=0)
+    try
     {
-      try
-      {
-        $val = hexdec($code);
-      }
-      catch (\Throwable $exception)
-      {
-        throw new CoreDecodeException([$exception], 'Not a valid obfuscated database ID: %s', $code);
-      }
-    }
-    else
-    {
-      if (preg_match('/^[0-9a-f]+$/', $code)!=1)
-      {
-        throw new CoreDecodeException('Not a valid obfuscated database ID: %s', $code);
-      }
       $val = hexdec($code);
+    }
+    catch (\Throwable $exception)
+    {
+      throw new CoreDecodeException([$exception], 'Not a valid obfuscated database ID: %s', $code);
     }
 
     $result = 0;
