@@ -75,7 +75,7 @@ class ReferenceObfuscatorCommand extends PlaisioCommand
   /**
    * @inheritdoc
    */
-  protected function configure()
+  protected function configure(): void
   {
     $this->setName('plaisio:reference-obfuscator-generator')
          ->setDescription('Generates the keys and masks for the Reference Obfuscator')
@@ -179,7 +179,7 @@ order by table_name";
           // Step 1: Find doc comment with annotation.
           if (is_array($token) && $token[0]==T_DOC_COMMENT)
           {
-            if (strpos($token[1], '@plaisio.obfuscator.labels')!==false)
+            if (str_contains($token[1], '@plaisio.obfuscator.labels'))
             {
               $line1 = $token[2];
               $step  = 2;

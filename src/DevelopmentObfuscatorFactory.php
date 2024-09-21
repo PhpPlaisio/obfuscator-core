@@ -28,9 +28,12 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
    */
   public static function decode(?string $code, string $alias): ?int
   {
-    if ($code===null || $code==='') return null;
+    if ($code===null || $code==='')
+    {
+      return null;
+    }
 
-    if (substr($code, 0, strlen($alias))!=$alias)
+    if (!str_starts_with($code, $alias))
     {
       throw new LogicException(sprintf("Labels '%s' and '%s' don't match.", substr($code, 0, strlen($alias)), $alias));
     }
@@ -51,7 +54,10 @@ class DevelopmentObfuscatorFactory implements ObfuscatorFactory
    */
   public static function encode(?int $id, string $alias): ?string
   {
-    if ($id===null) return null;
+    if ($id===null)
+    {
+      return null;
+    }
 
     return $alias.'_'.$id;
   }

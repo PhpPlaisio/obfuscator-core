@@ -71,7 +71,10 @@ class ReferenceObfuscator implements Obfuscator
    */
   public static function decrypt(?string $code, int $length, int $key, int $mask): ?int
   {
-    if ($code===null || $code==='') return null;
+    if ($code===null || $code==='')
+    {
+      return null;
+    }
 
     try
     {
@@ -111,7 +114,10 @@ class ReferenceObfuscator implements Obfuscator
    */
   public static function encrypt(?int $id, int $length, int $key, int $mask): ?string
   {
-    if ($id===null) return null;
+    if ($id===null)
+    {
+      return null;
+    }
 
     $val    = $id ^ $mask;
     $result = 0;

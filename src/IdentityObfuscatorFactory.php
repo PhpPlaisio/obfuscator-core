@@ -27,7 +27,10 @@ class IdentityObfuscatorFactory implements ObfuscatorFactory
    */
   public static function decode(?string $code, string $alias): ?int
   {
-    if ($code===null || $code==='') return null;
+    if ($code===null || $code==='')
+    {
+      return null;
+    }
 
     if (preg_match('/^\d+$/', $code)!=1)
     {
