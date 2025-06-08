@@ -21,7 +21,6 @@ class ReferenceObfuscatorFactory implements ObfuscatorFactory
   public static array $labels = [];
 
   //--------------------------------------------------------------------------------------------------------------------
-
   /**
    * @inheritdoc
    *

@@ -15,8 +15,8 @@ class ReferenceObfuscator implements Obfuscator
   /**
    * Some magic constants.
    */
-  const C1 = 52845;
-  const C2 = 22719;
+  const int C1 = 52845;
+  const int C2 = 22719;
 
   /**
    * The bit mask to be applied on a database ID. The length (in bytes) of this bit mask must be equal to the maximum
@@ -41,7 +41,6 @@ class ReferenceObfuscator implements Obfuscator
   private int $length;
 
   //--------------------------------------------------------------------------------------------------------------------
-
   /**
    * Object constructor.
    *

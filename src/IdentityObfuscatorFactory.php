@@ -6,7 +6,7 @@ namespace Plaisio\Obfuscator;
 use Plaisio\Obfuscator\Exception\CoreDecodeException;
 
 /**
- * A factory for obfuscators that do not obfuscate at all.
+ * A factory creating obfuscators that do not obfuscate at all.
  */
 class IdentityObfuscatorFactory implements ObfuscatorFactory
 {

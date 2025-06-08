@@ -75,7 +75,7 @@ class ReferenceObfuscatorFactoryTest extends TestCase
     $code = ReferenceObfuscatorFactory::encode(0, 'abc');
     $tmp  = ReferenceObfuscatorFactory::decode($code, 'abc');
 
-    self::assertEquals($tmp, 0);
+    self::assertEquals(0, $tmp);
   }
 
   //--------------------------------------------------------------------------------------------------------------------

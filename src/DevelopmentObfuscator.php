@@ -21,7 +21,6 @@ class DevelopmentObfuscator implements Obfuscator
   private string $alias;
 
   //--------------------------------------------------------------------------------------------------------------------
-
   /**
    * Object constructor.
    *

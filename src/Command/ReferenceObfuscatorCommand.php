@@ -155,7 +155,7 @@ order by table_name";
    * <li> The last line of this doc block.
    * <li> The last line of array declarations directly after the doc block.
    * </ul>
-   * If one of these line can not be found the line number will be set to null.
+   * If one of these lines cannot be found, the line number will be set to null.
    *
    * @param string $source The source code of the PHP file.
    *
@@ -218,7 +218,7 @@ order by table_name";
           break;
 
         case 4:
-          // Leave loop.
+          // Leave the loop.
           break;
       }
     }
@@ -233,10 +233,10 @@ order by table_name";
   private function generateConstants(): void
   {
     // Get constants already defined.
-    $defined = $this->getConfig('constants', true);
+    $defined = $this->getConfig('constants');
 
     // Get class for deriving the label from table metadata.
-    $mangler = $this->getConfig('mangler', true);
+    $mangler = $this->getConfig('mangler');
 
     $this->removeObsoleteConstants();
 
@@ -277,7 +277,7 @@ order by table_name";
    * Gets variable from config by path.
    *
    * @param string $path      The forward slash separated path of the variable.
-   * @param bool   $mandatory If set the variable is mandatory and when the variable is not set an exception will be
+   * @param bool   $mandatory If set the variable is mandatory, and when the variable is not set an exception will be
    *                          thrown.
    *
    * @return mixed
@@ -292,7 +292,7 @@ order by table_name";
     {
       if (!isset($config[$key]))
       {
-        // If the config variable is mandatory throw a runtime exception.
+        // If the config variable is mandatory, throw a runtime exception.
         if ($mandatory)
         {
           throw new RuntimeException("Variable '%s' not set in configuration file '%s'", $path, $this->configFileName);
@@ -318,7 +318,7 @@ order by table_name";
    *
    * @param string $label The label to search for.
    *
-   * @return string|null The table name of the table with  the label, null if no table with the label exists.
+   * @return string|null The table name of the table with the label, null if no table with the label exists.
    */
   private function getTableByLabel(string $label): ?string
   {
@@ -337,7 +337,7 @@ order by table_name";
   /**
    * Returns PHP snippet with an array declaration for reference obfuscator.
    *
-   * @param int $indent The number of space indenting the array declaration.
+   * @param int $indent The number of spaces indenting the array declaration.
    *
    * @return string[]
    */
@@ -373,7 +373,7 @@ order by table_name";
    */
   private function removeObsoleteConstants(): void
   {
-    $constants = $this->getConfig('constants', true);
+    $constants = $this->getConfig('constants');
     foreach ($constants as $tableName => $const)
     {
       $check = RowSetHelper::searchInRowSet($this->tables, 'table_name', $tableName);
@@ -410,7 +410,7 @@ order by table_name";
     $lineNumbers = $this->extractLines($source);
     if (!isset($lineNumbers[0]))
     {
-      throw new RuntimeException("Annotation not found in '%s'", $this->getConfig('file'));
+      throw new RuntimeException("Annotation not found in '%s'.", $this->getConfig('file'));
     }
 
     // Generate the variable statements.

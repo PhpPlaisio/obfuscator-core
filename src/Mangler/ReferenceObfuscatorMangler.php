@@ -14,9 +14,9 @@ interface ReferenceObfuscatorMangler
    *
    * @param array $table The metadata of the table. The array must have the following keys:
    *                     <ul>
-   *                     <li> table_name   The name of the table.
-   *                     <li> column_name  The name of the autoincrement column.
-   *                     <li> column_type  The data type of the autoincrement column.
+   *                     <li> table_name  The name of the table.
+   *                     <li> column_name The name of the autoincrement column.
+   *                     <li> column_type The data type of the autoincrement column.
    *                     </ul>
    *
    * @return string

@@ -31,7 +31,10 @@
     <!-- Runs all unit tests -->
     <target name="unit">
         <exec executable="bin/phpunit" passthru="true" checkreturn="true"/>
+        <exec executable="php" passthru="true" checkreturn="true">
+            <arg value="test/my-unit-test.php"/>
+        </exec>
     </target>
 
-    <target name="build"/>
+    <target name="build" depends="update"/>
 </project>
