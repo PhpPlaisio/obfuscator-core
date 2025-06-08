@@ -10,7 +10,7 @@
   "require": {
     "php": ">=8.3",
     "ext-json": "*",
-    "plaisio/console": "^3.0.0",
+    "plaisio/console": "^3.1.1",
     "plaisio/obfuscator": "^2.1.0",
     "psr/log": "^3.0.0",
     "setbased/exception": "^2.3.0",
